@@ -1,0 +1,39 @@
+/* Fondo y Tipografía Global */
+body {
+  background-color: #121212;
+  color: #e0e0e0;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Encabezado */
+.header {
+  background-color: #1a1a1a;
+  padding: 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.header h1 {
+  font-size: 1.8em;
+  color: #bb86fc;
+  margin: 0;
+}
+
+.header-actions a, .header-actions button {
+  color: #bb86fc;
+  margin-left: 15px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.header-actions a:hover, .header-actions button:hover {
+  color: #cf6679;
+}

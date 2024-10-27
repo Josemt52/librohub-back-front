@@ -1,0 +1,25 @@
+.admin-view {
+    padding: 20px;
+    color: #ffffff;
+  }
+  
+  .admin-view h2 {
+    color: #ffd700;
+  }
+  
+  .admin-buttons button {
+    background-color: #3a3a5f;
+    color: #ffffff;
+    padding: 10px;
+    margin-right: 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .admin-buttons button:hover {
+    background-color: #ffd700;
+    color: #29293d;
+  }
+  

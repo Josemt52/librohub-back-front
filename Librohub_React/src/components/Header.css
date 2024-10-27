@@ -1,0 +1,21 @@
+.header {
+    background-color: #29293d;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff;
+  }
+  
+  .header h1 {
+    font-size: 1.8em;
+    color: #ffd700;
+  }
+  
+  .header-actions a, .header-actions button {
+    color: #ffd700;
+    margin-left: 15px;
+    cursor: pointer;
+    text-decoration: none;
+  }
+  

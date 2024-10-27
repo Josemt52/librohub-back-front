@@ -1,0 +1,31 @@
+.book-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: space-around;
+  }
+  
+  .book-card {
+    background-color: #29293d;
+    border-radius: 8px;
+    padding: 20px;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    transition: transform 0.2s;
+  }
+  
+  .book-card:hover {
+    transform: scale(1.05);
+  }
+  
+  .book-info h3 {
+    font-size: 1.2em;
+    color: #ffd700;
+  }
+  
+  .book-price {
+    font-size: 1.1em;
+    color: #32cd32;
+  }
+  
