@@ -2,33 +2,45 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import mysql.connector
+from mysql.connector import OperationalError
 
-# Crear la aplicación FastAPI
+def execute_query(query):
+    try:
+        cursor.execute(query)
+        return cursor.fetchall()
+    except OperationalError as e:
+       
+        if e.errno == 2013: 
+            print("Reconectando a MySQL...")
+            conn.reconnect(attempts=3, delay=2)
+            cursor.execute(query)
+            return cursor.fetchall()
+        else:
+            raise e  
 
 app = FastAPI() 
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Dominios permitidos para hacer solicitudes
+    allow_origins=["http://localhost:3000"],  
     allow_credentials=True,
-    allow_methods=["*"],  # Permitir todos los métodos HTTP (GET, POST, PUT, DELETE)
-    allow_headers=["*"],  # Permitir todos los encabezados
+    allow_methods=["*"],  
+    allow_headers=["*"],  
 )
-# Conectar a la base de datos MySQL
+
 conn = mysql.connector.connect(
     host="127.0.0.1",
-    user="root",  # Cambia esto
-    password="jmtm",  # Cambia esto
-    database="librohub"  # Nombre de tu base de datos
+    user="root", 
+    password="jmtm", 
+    database="librohub"  
 )
 cursor = conn.cursor()
 
-# Modelo de datos para login
+
 class LoginData(BaseModel):
     username: str
     password: str
 
-# Endpoint para manejar el login
 @app.post("/login")
 def login(data: LoginData):
     query = "SELECT role FROM users WHERE username = %s AND password = %s"
@@ -41,15 +53,14 @@ def login(data: LoginData):
     else:
         raise HTTPException(status_code=401, detail="Credenciales inválidas")
 
-# Modelo de datos para el registro
+
 class RegisterData(BaseModel):
     username: str
     password: str
 
-# Endpoint para registrar nuevos usuarios
 @app.post("/register")
 def register(data: RegisterData):
-    # Verificar si el nombre de usuario ya existe
+
     query = "SELECT * FROM users WHERE username = %s"
     cursor.execute(query, (data.username,))
     existing_user = cursor.fetchone()
@@ -57,7 +68,7 @@ def register(data: RegisterData):
     if existing_user:
         raise HTTPException(status_code=400, detail="El nombre de usuario ya está en uso")
 
-    # Insertar el nuevo usuario con el rol de "user"
+
     query = "INSERT INTO users (username, password, role) VALUES (%s, %s, 'user')"
     cursor.execute(query, (data.username, data.password))
     conn.commit()
@@ -71,7 +82,6 @@ class Book(BaseModel):
     price: float
     category: str
 
-# Endpoint para buscar libros por categoría
 @app.get("/books/category/{category}")
 def get_books_by_category(category: str):
     query = "SELECT * FROM books WHERE category = %s"
@@ -86,7 +96,7 @@ def get_categories():
     query = "SELECT DISTINCT category FROM books"
     cursor.execute(query)
     categories = cursor.fetchall()
-    return [category[0] for category in categories]  # Devolver una lista con las categorías
+    return [category[0] for category in categories]  
 
 @app.get("/books")
 def get_books():
