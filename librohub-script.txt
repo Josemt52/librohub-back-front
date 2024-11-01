@@ -1,0 +1,76 @@
+-- Crear la base de datos
+CREATE DATABASE IF NOT EXISTS librohub;
+USE librohub;
+
+-- Crear la tabla de usuarios
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('user', 'admin') DEFAULT 'user'
+);
+
+-- Crear la tabla de libros
+CREATE TABLE IF NOT EXISTS books (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    author VARCHAR(255),
+    year INT,
+    price DECIMAL(10, 2),
+    category VARCHAR(100),
+    quantity INT DEFAULT 0
+);
+
+-- Crear la tabla de categorías
+CREATE TABLE IF NOT EXISTS categories (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100) NOT NULL UNIQUE
+);
+
+-- Crear la tabla de carrito
+CREATE TABLE IF NOT EXISTS cart (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    book_id INT NOT NULL,
+    quantity INT NOT NULL DEFAULT 1,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
+);
+
+-- Crear la tabla de órdenes (para almacenar compras)
+CREATE TABLE IF NOT EXISTS orders (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    total DECIMAL(10, 2) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+);
+
+-- Crear la tabla de detalles de órdenes
+CREATE TABLE IF NOT EXISTS order_items (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    order_id INT NOT NULL,
+    book_id INT NOT NULL,
+    quantity INT NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    FOREIGN KEY (order_id) REFERENCES orders(id) ON DELETE CASCADE,
+    FOREIGN KEY (book_id) REFERENCES books(id) ON DELETE CASCADE
+);
+
+-- Insertar algunas categorías de ejemplo
+INSERT INTO categories (name) VALUES ('Fiction'), ('Dystopian'), ('Classics'), ('Adventure'), ('Historical'), ('Romance'), ('Fantasy');
+
+-- Insertar algunos libros de ejemplo
+INSERT INTO books (title, author, year, price, category, quantity) VALUES
+('To Kill a Mockingbird', 'Harper Lee', 1960, 12.99, 'Fiction', 10),
+('1984', 'George Orwell', 1949, 9.99, 'Dystopian', 8),
+('The Great Gatsby', 'F. Scott Fitzgerald', 1925, 10.99, 'Classics', 5),
+('Moby Dick', 'Herman Melville', 1851, 15.00, 'Adventure', 7),
+('War and Peace', 'Leo Tolstoy', 1869, 18.99, 'Historical', 3),
+('Pride and Prejudice', 'Jane Austen', 1813, 11.99, 'Romance', 6),
+('The Hobbit', 'J.R.R. Tolkien', 1937, 14.99, 'Fantasy', 12);
+
+-- Insertar un usuario administrador y un usuario estándar para pruebas
+INSERT INTO users (username, password, role) VALUES 
+('admin', 'admin123', 'admin'),
+('user', 'user123', 'user');
