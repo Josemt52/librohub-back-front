@@ -1,5 +1,5 @@
 import React from 'react';
-import './BookList.css';
+import '../styles/BookList.css';
 
 const BookList = ({ books, onEdit, onDelete }) => {
   return (

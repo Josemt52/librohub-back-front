@@ -21,7 +21,23 @@ const db = mysql.createPool({
   connectionLimit: 10,
   queueLimit: 0
 });
+// Ruta de login de administrador
+app.post('/admin-login', (req, res) => {
+  const { username, password } = req.body;
 
+  const query = "SELECT role FROM users WHERE username = ? AND password = ? AND role = 'admin'";
+  db.query(query, [username, password], (err, results) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error en el servidor: ' + err.message });
+    }
+
+    if (results.length > 0) {
+      res.json({ message: 'Login exitoso', role: results[0].role });
+    } else {
+      res.status(401).json({ error: 'Credenciales inválidas o no tienes permisos de administrador' });
+    }
+  });
+});
 // Ruta de login
 app.post('/login', (req, res) => {
   const { username, password } = req.body;
@@ -139,7 +155,7 @@ app.delete('/books/:bookId', (req, res) => {
   });
 });
 
-// Iniciar el servidor en el puerto 3001
+// Iniciar el servidor en el puerto 5000
 app.listen(5000, () => {
   console.log('Servidor corriendo en el puerto 5000');
 });

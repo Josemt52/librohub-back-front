@@ -1,6 +1,6 @@
 /* Fondo y Tipografía Global */
 body {
-  background-color: #121212;
+  background-color: #121826;
   color: #e0e0e0;
   font-family: 'Arial', sans-serif;
   margin: 0;
@@ -14,7 +14,7 @@ body {
 
 /* Encabezado */
 .header {
-  background-color: #1a1a1a;
+  background-color: #1b2535;
   padding: 15px 20px;
   display: flex;
   justify-content: space-between;
@@ -23,17 +23,17 @@ body {
 
 .header h1 {
   font-size: 1.8em;
-  color: #bb86fc;
+  color: #3399ff;
   margin: 0;
 }
 
 .header-actions a, .header-actions button {
-  color: #bb86fc;
+  color: #3399ff;
   margin-left: 15px;
   cursor: pointer;
   text-decoration: none;
 }
 
 .header-actions a:hover, .header-actions button:hover {
-  color: #cf6679;
+  color: #1a73e8;
 }

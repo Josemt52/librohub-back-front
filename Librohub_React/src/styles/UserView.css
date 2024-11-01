@@ -6,9 +6,9 @@
 }
 
 .category-buttons button {
-  background-color: #1a1a1a;
-  color: #bb86fc;
-  border: 1px solid #bb86fc;
+  background-color: #1b2535;
+  color: #3399ff;
+  border: 1px solid #3399ff;
   padding: 8px 16px;
   font-size: 0.9em;
   cursor: pointer;
@@ -17,8 +17,8 @@
 }
 
 .category-buttons button:hover {
-  background-color: #bb86fc;
-  color: #121212;
+  background-color: #3399ff;
+  color: #121826;
 }
 
 /* Tarjetas de Libro */
@@ -30,7 +30,7 @@
 }
 
 .book-card {
-  background-color: #1a1a1a;
+  background-color: #1b2535;
   border-radius: 8px;
   padding: 20px;
   width: 200px;
@@ -47,24 +47,24 @@
 
 .book-info h3 {
   font-size: 1.2em;
-  color: #bb86fc;
+  color: #3399ff;
   margin-bottom: 8px;
 }
 
 .book-info p {
   font-size: 0.9em;
-  color: #b3b3b3;
+  color: #b0b3b8;
 }
 
 .book-price {
   font-size: 1.1em;
-  color: #cf6679; /* Rojo suave para precios */
+  color: #1a73e8; /* Azul brillante para precios */
   margin-top: 10px;
 }
 
 .book-card button {
-  background-color: #bb86fc;
-  color: #121212;
+  background-color: #3399ff;
+  color: #121826;
   border: none;
   padding: 8px 16px;
   font-size: 0.9em;
@@ -74,6 +74,6 @@
 }
 
 .book-card button:hover {
-  background-color: #cf6679;
+  background-color: #1a73e8;
   color: #ffffff;
 }

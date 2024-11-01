@@ -53,7 +53,6 @@ def login(data: LoginData):
     else:
         raise HTTPException(status_code=401, detail="Credenciales inválidas")
 
-
 class RegisterData(BaseModel):
     username: str
     password: str
